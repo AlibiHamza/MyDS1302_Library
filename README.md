@@ -35,6 +35,6 @@ GND     →    GND
 
 GPIO5   →    CE/RST
 
-GPIO18  →    DAT/IO
+GPIO22  →    DAT/IO
 
-GPIO19  →    CLK/SCLK
+GPIO21  →    CLK/SCLK
