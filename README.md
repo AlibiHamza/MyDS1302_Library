@@ -6,12 +6,15 @@ https://img.shields.io/badge/Version-1.0.0-orange.svg
 A complete Arduino library for the DS1302 RTC module, developed from scratch with a deep understanding of the communication protocol.
 
 🎯 Features
-✅ Developed from scratch without external libraries
-✅ Full DS1302 support (time, date, RAM)
-✅ Optimized for ESP32
-✅ Minimal and efficient code (< 300 lines)
-✅ Complete documentation in French
-✅ Ready-to-use examples
+✅ Developed from scratch without external libraries.
+
+✅ Full DS1302 support (time, date, RAM).
+
+✅ Optimized for ESP32.
+
+✅ Minimal and efficient code (< 300 lines).
+
+✅ Ready-to-use examples.
 
 📦 Installation
 Method 1: Via Arduino IDE
