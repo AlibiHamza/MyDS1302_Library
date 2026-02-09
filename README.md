@@ -1,11 +1,15 @@
 📅 MyDS1302 - DS1302 RTC Library for ESP32
+
 https://img.shields.io/badge/Platform-ESP32-blue.svg
+
 https://img.shields.io/badge/License-MIT-green.svg
+
 https://img.shields.io/badge/Version-1.0.0-orange.svg
 
 A complete Arduino library for the DS1302 RTC module, developed from scratch with a deep understanding of the communication protocol.
 
 🎯 Features
+
 ✅ Developed from scratch without external libraries.
 
 ✅ Full DS1302 support (time, date, RAM).
@@ -17,12 +21,15 @@ A complete Arduino library for the DS1302 RTC module, developed from scratch wit
 ✅ Ready-to-use examples.
 
 📦 Installation
+
 Method 1: Via Arduino IDE
+
 Download this repository (Code → Download ZIP)
 In Arduino IDE: Sketch → Include Library → Add .ZIP Library
 Select the downloaded ZIP file
 
 Method 2: Manually
+
 Copy the MyDS1302_Library folder to your Arduino/libraries/ directory
 
 🔌 Wiring
