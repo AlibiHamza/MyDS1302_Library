@@ -1,11 +1,5 @@
 📅 MyDS1302 - DS1302 RTC Library for ESP32
 
-https://img.shields.io/badge/Platform-ESP32-blue.svg
-
-https://img.shields.io/badge/License-MIT-green.svg
-
-https://img.shields.io/badge/Version-1.0.0-orange.svg
-
 A complete Arduino library for the DS1302 RTC module, developed from scratch with a deep understanding of the communication protocol.
 
 🎯 Features
@@ -34,8 +28,13 @@ Copy the MyDS1302_Library folder to your Arduino/libraries/ directory
 
 🔌 Wiring
 ESP32        DS1302
+
 3.3V    →    VCC
+
 GND     →    GND
+
 GPIO5   →    CE/RST
+
 GPIO18  →    DAT/IO
+
 GPIO19  →    CLK/SCLK
