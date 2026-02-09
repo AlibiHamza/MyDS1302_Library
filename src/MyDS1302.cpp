@@ -33,25 +33,24 @@ void MyDS1302::_writeByte(uint8_t data) {
     delayMicroseconds(1);
     data >>= 1;
   }
-  pinMode(_ioPin, INPUT_PULLUP); // Retour en entrée
+  pinMode(_ioPin, INPUT_PULLUP); 
 }
 
 void MyDS1302::_writeRegister(uint8_t reg, uint8_t data) {
-  digitalWrite(_cePin, HIGH);  // Active le DS1302
-  _writeByte(reg);             // Adresse du registre
-  _writeByte(data);            // Donnée à écrire
-  digitalWrite(_cePin, LOW);   // Désactive
+  digitalWrite(_cePin, HIGH);  
+  _writeByte(reg);             
+  _writeByte(data);            
+  digitalWrite(_cePin, LOW);   
 }
 
 void MyDS1302::setDateTime(uint8_t second, uint8_t minute, uint8_t hour,
                            uint8_t day, uint8_t month, uint8_t year) {
-  // Désactiver la protection en écriture
+
   _writeRegister(0x8E, 0x00);
-  
-  // Démarrer l'horloge (bit CH=0)
+
   _writeRegister(0x80, _decToBcd(second) & 0x7F);
   
-  // Écrire les autres registres
+
   _writeRegister(0x82, _decToBcd(minute));
   _writeRegister(0x84, _decToBcd(hour));
   _writeRegister(0x86, _decToBcd(day));
@@ -59,10 +58,10 @@ void MyDS1302::setDateTime(uint8_t second, uint8_t minute, uint8_t hour,
   _writeRegister(0x8A, 0x01); 
   _writeRegister(0x8C, _decToBcd(year));
   
-  // Réactiver la protection
+
   _writeRegister(0x8E, 0x80);
 
-  delay(10); // Délai pour s'assurer de l'écriture
+  delay(10); 
 }
 
 uint8_t MyDS1302::_readByte() {
@@ -70,9 +69,9 @@ uint8_t MyDS1302::_readByte() {
   pinMode(_ioPin, INPUT_PULLUP);
   
   for (int i = 0; i < 8; i++) {
-    data >>= 1;  // Décale pour préparer le prochain bit
+    data >>= 1;  
     if (digitalRead(_ioPin)) {
-      data |= 0x80;  // Met le bit MSB à 1 si IO=HIGH
+      data |= 0x80;  
     }
     digitalWrite(_sclkPin, HIGH);
     delayMicroseconds(1);
@@ -84,7 +83,7 @@ uint8_t MyDS1302::_readByte() {
 
 uint8_t MyDS1302::_readRegister(uint8_t reg) {
   digitalWrite(_cePin, HIGH);
-  _writeByte(reg | 0x01);  // Adresse + bit READ (1)
+  _writeByte(reg | 0x01);  
   uint8_t data = _readByte();
   digitalWrite(_cePin, LOW);
   return data;
@@ -93,7 +92,7 @@ uint8_t MyDS1302::_readRegister(uint8_t reg) {
 void MyDS1302::readDateTime(uint8_t &second, uint8_t &minute, uint8_t &hour,
                             uint8_t &day, uint8_t &month, uint8_t &year) {
 
-  // Lire tous les registres
+ 
   uint8_t sec_reg = _readRegister(0x81);
   uint8_t min_reg = _readRegister(0x83);
   uint8_t hour_reg = _readRegister(0x85);
@@ -108,7 +107,7 @@ void MyDS1302::readDateTime(uint8_t &second, uint8_t &minute, uint8_t &hour,
   month = _bcdToDec(_readRegister(0x89));
   year = _bcdToDec(_readRegister(0x8D));
 
-  // Debug: afficher les valeurs brutes
+  
   Serial.printf("Debug - Raw: sec=0x%02X min=0x%02X hour=0x%02X day=0x%02X month=0x%02X year=0x%02X\n",
                 sec_reg, min_reg, hour_reg, day_reg, month_reg, year_reg);
 }
@@ -123,19 +122,19 @@ String MyDS1302::getDateTimeString() {
   return String(buffer);
 }
 
-// Ajout de fonctions de debug
+/
 bool MyDS1302::testCommunication() {
-  // Essayer de lire le registre de contrôle
+  
   uint8_t control = _readRegister(0x8E);
   Serial.printf("Registre contrôle (0x8E): 0x%02X\n", control);
-  return (control == 0x80 || control == 0x00); // Accepte protégé ou non protégé
+  return (control == 0x80 || control == 0x00); 
 }
 
 void MyDS1302::dumpAllRegisters() {
   Serial.println("Dump de tous les registres:");
   for (uint8_t i = 0x80; i <= 0x8F; i++) {
-    if (i % 2 == 1) { // Seulement les registres impairs (lecture)
-      uint8_t val = _readRegister(i & 0xFE); // Convertir en adresse paire
+    if (i % 2 == 1) { 
+      uint8_t val = _readRegister(i & 0xFE); 
       Serial.printf("0x%02X: 0x%02X ", i, val);
       if ((i - 0x80) % 4 == 3) Serial.println();
     }
