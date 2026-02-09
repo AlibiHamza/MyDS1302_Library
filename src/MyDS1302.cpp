@@ -45,12 +45,9 @@ void MyDS1302::_writeRegister(uint8_t reg, uint8_t data) {
 
 void MyDS1302::setDateTime(uint8_t second, uint8_t minute, uint8_t hour,
                            uint8_t day, uint8_t month, uint8_t year) {
-
   _writeRegister(0x8E, 0x00);
 
-  _writeRegister(0x80, _decToBcd(second) & 0x7F);
-  
-
+  _writeRegister(0x80, _decToBcd(second) & 0x7F); 
   _writeRegister(0x82, _decToBcd(minute));
   _writeRegister(0x84, _decToBcd(hour));
   _writeRegister(0x86, _decToBcd(day));
@@ -58,7 +55,6 @@ void MyDS1302::setDateTime(uint8_t second, uint8_t minute, uint8_t hour,
   _writeRegister(0x8A, 0x01); 
   _writeRegister(0x8C, _decToBcd(year));
   
-
   _writeRegister(0x8E, 0x80);
 
   delay(10); 
@@ -91,8 +87,6 @@ uint8_t MyDS1302::_readRegister(uint8_t reg) {
 
 void MyDS1302::readDateTime(uint8_t &second, uint8_t &minute, uint8_t &hour,
                             uint8_t &day, uint8_t &month, uint8_t &year) {
-
- 
   uint8_t sec_reg = _readRegister(0x81);
   uint8_t min_reg = _readRegister(0x83);
   uint8_t hour_reg = _readRegister(0x85);
@@ -107,7 +101,6 @@ void MyDS1302::readDateTime(uint8_t &second, uint8_t &minute, uint8_t &hour,
   month = _bcdToDec(_readRegister(0x89));
   year = _bcdToDec(_readRegister(0x8D));
 
-  
   Serial.printf("Debug - Raw: sec=0x%02X min=0x%02X hour=0x%02X day=0x%02X month=0x%02X year=0x%02X\n",
                 sec_reg, min_reg, hour_reg, day_reg, month_reg, year_reg);
 }
@@ -124,7 +117,6 @@ String MyDS1302::getDateTimeString() {
 
 /
 bool MyDS1302::testCommunication() {
-  
   uint8_t control = _readRegister(0x8E);
   Serial.printf("Registre contrôle (0x8E): 0x%02X\n", control);
   return (control == 0x80 || control == 0x00); 
