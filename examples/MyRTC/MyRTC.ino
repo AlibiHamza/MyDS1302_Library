@@ -1,6 +1,6 @@
 #include "MyDS1302.h"
 
-// Définition des broches
+//Pin definition
 #define CE_PIN   5    
 #define IO_PIN   21  
 #define SCLK_PIN 22 
@@ -12,30 +12,30 @@ void setup() {
   delay(1000); 
   
   Serial.println("=== Test DS1302 ===");
-  Serial.printf("Broches: CE=%d, IO=%d, SCLK=%d\n", CE_PIN, IO_PIN, SCLK_PIN);
+  Serial.printf("Pin: CE=%d, IO=%d, SCLK=%d\n", CE_PIN, IO_PIN, SCLK_PIN);
   
-  // Initialiser
+  // Initialize
   rtc.begin();
   
-  // Tester la communication
-  Serial.println("Test de communication...");
+  // Test communication
+  Serial.println("Test communication...");
   if (rtc.testCommunication()) {
     Serial.println("✓ Communication OK");
   } else {
-    Serial.println("✗ Communication échouée");
+    Serial.println("✗ Communication failed");
   }
   
-  // Dumper les registres avant modification
-  Serial.println("\nRegistres avant écriture:");
+  // Dump registers before modification
+  Serial.println("\nPre-writing registers:");
   rtc.dumpAllRegisters();
   
-  // Régler l'heure
-  // Serial.println("\nRéglage de l'heure...");
+  // Set the time
+  // Serial.println("\nSetting the time...");
   // rtc.setDateTime(0, 30, 21, 7, 2, 24); // 20:00:05 07/02/2024
   
   delay(100);
   
-  // Dumper après écriture
+  // Dump after writing
   Serial.println("\nRegistres après écriture:");
   rtc.dumpAllRegisters();
   
@@ -43,7 +43,7 @@ void setup() {
 }
 
 void loop() {
-  // Lire et afficher avec debug
+  // Read and display with debug
   uint8_t second, minute, hour, day, month, year;
   rtc.readDateTime(second, minute, hour, day, month, year);
   
