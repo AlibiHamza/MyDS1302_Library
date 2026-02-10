@@ -115,7 +115,6 @@ String MyDS1302::getDateTimeString() {
   return String(buffer);
 }
 
-/
 bool MyDS1302::testCommunication() {
   uint8_t control = _readRegister(0x8E);
   Serial.printf("Registre contrôle (0x8E): 0x%02X\n", control);
